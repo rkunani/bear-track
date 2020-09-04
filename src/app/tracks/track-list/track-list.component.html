@@ -1,1 +1,18 @@
-<h3>List the tracks here</h3>
+<mat-spinner *ngIf="isLoading"></mat-spinner>
+<div *ngIf="!isLoading">
+  <h2 class="center">My Tracks</h2>
+  <mat-accordion *ngIf="(tracks.length > 0)">
+    <mat-expansion-panel *ngFor="let track of tracks">
+      <mat-expansion-panel-header>
+        {{ track.course + ", " + track.semester}}
+      </mat-expansion-panel-header>
+      <p>{{ "Notify me when the course is " + track.status }}</p>
+      <mat-action-row *ngIf="isAuthenticated">
+        <a mat-button color="primary" [routerLink]="['/edit', post.id]">EDIT</a>
+        <button mat-button color="warn" (click)="onDeletePost(post.id)">DELETE</button>
+      </mat-action-row>
+    </mat-expansion-panel>
+  </mat-accordion>
+</div>
+
+<p *ngIf="(tracks.length <= 0) && (!isLoading)" class="center">No Tracks!</p>

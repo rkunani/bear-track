@@ -1,0 +1,35 @@
+<mat-card *ngIf="!isConfirmed">
+  <mat-spinner *ngIf="isLoading"></mat-spinner>
+  <form (submit)="onSignUp(signUpForm)" #signUpForm="ngForm" *ngIf="!isLoading && !isConfirmed">
+    <mat-form-field>
+      <input
+      matInput
+      type="text"
+      required
+      minlength=2
+      placeholder="Name"
+      #nameInput="ngModel"
+      name="name"
+      ngModel>
+      <mat-error *ngIf="nameInput.invalid">Name must be at least 2 letters</mat-error>
+    </mat-form-field>
+    <mat-form-field>
+      <input
+      matInput
+      type="tel"
+      required
+      pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"
+      placeholder="Phone number to receive text notifications"
+      #phoneInput="ngModel"
+      name="phone"
+      ngModel>
+      <mat-error *ngIf="phoneInput.invalid">Please enter a phone number in xxx-xxx-xxxx format</mat-error>
+    </mat-form-field>
+    <button mat-raised-button color="primary" type="submit">Sign Up</button>
+  </form>
+</mat-card>
+
+<div *ngIf="isConfirmed" class="center">
+  <h3>Thank you for signing up!</h3>
+  Please wait for a verification text from us. If you don't receive a text in 10 minutes, sign up again.
+</div>

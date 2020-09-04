@@ -1,0 +1,30 @@
+<mat-card>
+  <mat-spinner *ngIf="isLoading"></mat-spinner>
+  <form (submit)="onLogin(loginForm)" #loginForm="ngForm" *ngIf="!isLoading">
+    <mat-form-field>
+      <input
+      matInput
+      type="text"
+      required
+      minlength=2
+      placeholder="Name"
+      #nameInput="ngModel"
+      name="name"
+      ngModel>
+      <mat-error *ngIf="nameInput.invalid">Name must be at least 2 letters</mat-error>
+    </mat-form-field>
+    <mat-form-field>
+      <input
+      matInput
+      type="tel"
+      required
+      pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"
+      placeholder="Phone number you registered to receive notifications from us"
+      #phoneInput="ngModel"
+      name="phone"
+      ngModel>
+      <mat-error *ngIf="phoneInput.invalid">Phone number must be in xxx-xxx-xxxx format</mat-error>
+    </mat-form-field>
+    <button mat-raised-button color="primary" type="submit">Log In</button>
+  </form>
+</mat-card>

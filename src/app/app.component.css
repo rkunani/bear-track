@@ -1,4 +1,8 @@
-.center {
-  display: flex;
+mat-card {
   justify-content: center;
+}
+
+* {
+  font-family: "Tangerine", serif;
+  /* Add !important to overwrite all elements */
 }

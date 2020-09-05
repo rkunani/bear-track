@@ -25,6 +25,7 @@ app.use((req, res, next) => {
   next();
 });
 
+// register a new user
 app.post('/api/user/signup', (req, res, next) => {
   const formattedPhone = req.body.phone.replace(/-/g, "");  // weird syntax replaces all "-" instead of just one
   // create a new user
@@ -51,6 +52,7 @@ app.post('/api/user/signup', (req, res, next) => {
     });
 });
 
+// login a user
 app.post('/api/user/login', (req, res, next) => {
   let fetchedUser;  // for later use in sending the token
   const formattedPhone = req.body.phone.replace(/-/g, "");
@@ -70,7 +72,8 @@ app.post('/api/user/login', (req, res, next) => {
     });
 });
 
-app.post('/api/track/create', (req, res, next) => {
+// create a new track
+app.post('/api/tracks/create', (req, res, next) => {
   const track = new Track({
     course: req.body.course,
     semester: req.body.semester,
@@ -83,6 +86,17 @@ app.post('/api/track/create', (req, res, next) => {
         trackId: newTrack._id  // id from Mongo
       });
     });
+});
+
+// fetch all tracks
+app.get('/api/tracks', (req, res, next) => {
+  Track.find()
+    .then((documents) => {
+      return res.status(200).json({
+        message: "Tracks fetched successfully!",
+        tracks: documents
+      })
+    })
 });
 
 module.exports = app;  // exports the app

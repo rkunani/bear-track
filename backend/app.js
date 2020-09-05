@@ -10,6 +10,7 @@ const twilioNumber = '+15102885067';
 const app = express();
 
 const User = require('./models/user');
+const Track = require('./models/track');
 
 mongoose.connect("mongodb+srv://rkunani:dbpwd@cluster0.okwcq.mongodb.net/beartrack-dev?retryWrites=true&w=majority")
   .then(() => { console.log("Connected to database!"); })
@@ -48,7 +49,7 @@ app.post('/api/user/signup', (req, res, next) => {
     .catch( (error) => {
       return res.status(500).json({error: error});  // will catch uniqueness errors
     });
-})
+});
 
 app.post('/api/user/login', (req, res, next) => {
   let fetchedUser;  // for later use in sending the token
@@ -67,6 +68,21 @@ app.post('/api/user/login', (req, res, next) => {
     .catch( (error) => {
       return res.status(404).json( { message: "Authentication failed" });
     });
-})
+});
+
+app.post('/api/track/create', (req, res, next) => {
+  const track = new Track({
+    course: req.body.course,
+    semester: req.body.semester,
+    status: req.body.status
+  });
+  track.save()
+    .then( (newTrack) => {
+      res.status(201).json({
+        message: 'Track successfully added',
+        trackId: newTrack._id  // id from Mongo
+      });
+    });
+});
 
 module.exports = app;  // exports the app

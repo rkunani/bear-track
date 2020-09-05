@@ -7,9 +7,9 @@
         {{ track.course + ", " + track.semester}}
       </mat-expansion-panel-header>
       <p>{{ "Notify me when the course is " + track.status }}</p>
-      <mat-action-row *ngIf="isAuthenticated">
-        <a mat-button color="primary" [routerLink]="['/edit', post.id]">EDIT</a>
-        <button mat-button color="warn" (click)="onDeletePost(post.id)">DELETE</button>
+      <mat-action-row *ngIf="userIsAuthenticated">
+        <a mat-button color="primary" [routerLink]="['/']">EDIT</a>
+        <button mat-button color="warn" (click)="onDeleteTrack()">DELETE</button>
       </mat-action-row>
     </mat-expansion-panel>
   </mat-accordion>

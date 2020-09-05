@@ -11,8 +11,8 @@ import { TracksService } from '../tracks.service';
 })
 export class TrackCreateComponent implements OnInit {
   isLoading = false;
-  courses = ["CS162", "CS189", "Math 1A"];
-  semesters = ["Fall 2020", "Spring 2020", "Summer 2020"];
+  courses = [];
+  semesters = [];
   statuses = ["Open", "Closed"];
 
   constructor(private tracksService: TracksService, private httpClient: HttpClient) { }

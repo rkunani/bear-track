@@ -31,8 +31,8 @@ export class TracksService {
   getTracks() {
     this.httpClient.get<{message: string, tracks: any}>("http://localhost:3000/api/tracks")
       .pipe(map(  // this map is the rxjs operator
-        (trackData) => {
-          return trackData.tracks.map( (track) => {  // this map is the built-in
+        (response) => {
+          return response.tracks.map( (track) => {  // this map is the built-in
             return {
               course: track.course,
               semester: track.semester,

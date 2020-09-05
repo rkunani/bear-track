@@ -30,7 +30,7 @@ export class AuthService {
       .subscribe( (response) => {
         this.isAuthenticated = true;
         this.authSubject.next(true);
-        this.router.navigate(['/mytracks']);
+        this.router.navigate(['/tracks/list']);
       });
   }
 

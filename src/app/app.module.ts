@@ -10,6 +10,7 @@ import {MatFormFieldModule} from '@angular/material/form-field';
 import { HttpClientModule } from '@angular/common/http';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatExpansionModule } from '@angular/material/expansion';
+import {MatSelectModule} from '@angular/material/select';
 
 
 import { AppRoutingModule } from './app-routing.module';
@@ -19,6 +20,7 @@ import { TrackListComponent } from './tracks/track-list/track-list.component';
 import { WelcomeComponent } from './welcome/welcome.component';
 import { SignUpComponent } from './auth/signup/signup.component';
 import { LoginComponent } from './auth/login/login.component';
+import { TrackCreateComponent } from './tracks/track-create/track-create.component';
 
 @NgModule({
   declarations: [
@@ -27,7 +29,8 @@ import { LoginComponent } from './auth/login/login.component';
     TrackListComponent,
     WelcomeComponent,
     SignUpComponent,
-    LoginComponent
+    LoginComponent,
+    TrackCreateComponent
   ],
   imports: [
     BrowserModule,
@@ -41,7 +44,8 @@ import { LoginComponent } from './auth/login/login.component';
     MatFormFieldModule,
     HttpClientModule,
     MatProgressSpinnerModule,
-    MatExpansionModule
+    MatExpansionModule,
+    MatSelectModule
   ],
   providers: [],
   bootstrap: [AppComponent]

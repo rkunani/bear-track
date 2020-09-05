@@ -1,0 +1,24 @@
+<mat-card>
+  <mat-spinner *ngIf="isLoading"></mat-spinner>
+  <form (submit)="onCreateTrack(trackForm)" #trackForm="ngForm" *ngIf="!isLoading">
+    <mat-form-field appearance="fill">
+      <mat-label>Course</mat-label>
+      <mat-select ngModel name="course">
+        <mat-option *ngFor="let course of courses" [value]="course">
+          {{ course }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Semester</mat-label>
+      <mat-select ngModel name="semester">
+        <mat-option *ngFor="let sem of semesters" [value]="sem">  <!-- [value] says which attribute which actually get submitted to the form -->
+          {{ sem }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <button mat-raised-button color="primary" type="submit">Create Track</button>
+  </form>
+</mat-card>

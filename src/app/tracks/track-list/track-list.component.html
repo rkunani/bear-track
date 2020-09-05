@@ -13,6 +13,6 @@
       </mat-action-row>
     </mat-expansion-panel>
   </mat-accordion>
+  <p *ngIf="(tracks.length <= 0)" class="center">No Tracks!</p>
+  <button mat-raised-button color="primary" [routerLink]="['/tracks/create']" class="center">Add a Track</button>
 </div>
-
-<p *ngIf="(tracks.length <= 0) && (!isLoading)" class="center">No Tracks!</p>

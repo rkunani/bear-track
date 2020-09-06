@@ -124,7 +124,7 @@ app.delete('/api/tracks/:trackId', checkAuth, (req, res, next) => {
     });
 })
 
-cron.schedule("*/10 * * * * *", () => {
+cron.schedule("* * * * *", () => {
   console.log("---------------------");
   send_message();
   console.log("done sending messages");  // this line executes before the messages are actually sent (not a problem?)

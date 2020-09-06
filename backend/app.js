@@ -124,10 +124,9 @@ app.delete('/api/tracks/:trackId', checkAuth, (req, res, next) => {
     });
 })
 
-cron.schedule("* * * * *", () => {
+cron.schedule("*/10 * * * * *", () => {  // send every 10 secs
   console.log("---------------------");
   send_message();
-  console.log("done sending messages");  // this line executes before the messages are actually sent (not a problem?)
 });
 
 module.exports = app;  // exports the app

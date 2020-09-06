@@ -111,9 +111,14 @@ app.get('/api/tracks', checkAuth, (req, res, next) => {
 
 // delete a track
 app.delete('/api/tracks/:trackId', checkAuth, (req, res, next) => {
-  Track.deleteOne({ _id: req.params.trackId })
+  Track.deleteOne({ _id: req.params.trackId, creator: req.userData.userId })
     .then( (result) => {
-      res.status(200).json({message: "Post deleted!"});
+      if (result.n > 0) {
+        res.status(200).json({message: "Track deleted!"});
+      }
+      else {
+        res.status(401).json({message: "User is not authorized to delete this track"});
+      }
     });
 })
 

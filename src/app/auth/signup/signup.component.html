@@ -29,6 +29,8 @@
   </form>
 </mat-card>
 
+<div *ngIf="!isConfirmed && phoneIsInvalid" class="center" color="warn">Phone number is already in use</div>
+
 <div *ngIf="isConfirmed" class="center">
   <h3>Thank you for signing up!</h3>
   Please wait for a verification text from us. If you don't receive a text in 10 minutes, sign up again.

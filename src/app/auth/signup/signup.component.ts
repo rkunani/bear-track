@@ -9,6 +9,7 @@ import { AuthService } from '../auth.service';
 export class SignUpComponent {
   isLoading = false;
   isConfirmed = false;
+  phoneIsInvalid = false;
 
   constructor(private authService: AuthService) {
 
@@ -20,11 +21,17 @@ export class SignUpComponent {
     }
     this.isLoading = true;
     this.authService.createUser(form.value.name, form.value.phone)
-      .subscribe( (response) => {
-        this.isLoading = false;
-        this.isConfirmed = true;
-        console.log(response);
-      });
-    // need to handle the case where the signup fails due to uniqueness issue
+      .subscribe(
+        (response) => {
+          this.isLoading = false;
+          this.isConfirmed = true;
+          console.log(response);
+        },
+        (error) => {
+          this.phoneIsInvalid = true;
+          this.isLoading = false;
+          console.log("Phone number is already in use");
+        }
+      );
   }
 }

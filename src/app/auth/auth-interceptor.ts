@@ -13,6 +13,9 @@ export class AuthInterceptor implements HttpInterceptor {
 
   intercept(req: HttpRequest<any>, next: HttpHandler) {
     const authToken = this.authService.getToken();
+    if (req.url.includes("berkeleytime")) {  // Berkeleytime does not accept Authorization headers (CORS)
+      return next.handle(req);
+    }
     const newReq = req.clone({ headers: req.headers.set("Authorization", "Bearer " + authToken) });
     return next.handle(newReq);
   }

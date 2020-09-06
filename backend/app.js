@@ -75,7 +75,8 @@ app.post('/api/user/login', (req, res, next) => {
 // create a new track
 app.post('/api/tracks/create', (req, res, next) => {
   const track = new Track({
-    course: req.body.course,
+    course_id: req.body.course_id,
+    course_code: req.body.course_code,
     semester: req.body.semester,
     status: req.body.status
   });

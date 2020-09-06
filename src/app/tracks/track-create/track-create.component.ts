@@ -4,6 +4,7 @@ import { map } from 'rxjs/operators';
 import { HttpClient } from '@angular/common/http';
 
 import { TracksService } from '../tracks.service';
+import { CDK_CONNECTED_OVERLAY_SCROLL_STRATEGY } from '@angular/cdk/overlay/overlay-directives';
 
 @Component({
   templateUrl: './track-create.component.html',
@@ -36,8 +37,13 @@ export class TrackCreateComponent implements OnInit {
       .pipe(map(  // this map is the rxjs operator
         (response) => {
           return response.courses.map( (course) => {  // this map is the built-in
-            return course.abbreviation + " " + course.course_number;
-          })
+            return {
+              course_id: course.id,
+              course_code: course.abbreviation,
+              course_number: course.course_number,
+              course_name: course.title
+            };
+          });
         }
       ))
       .subscribe(

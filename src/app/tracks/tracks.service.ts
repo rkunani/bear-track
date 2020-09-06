@@ -14,13 +14,18 @@ export class TracksService {
 
   constructor(private httpClient: HttpClient, private router: Router) { }
 
-  createTrack(course: string, semester: string, status: string) {
-    const track = { id: null, course: course, semester: semester, status: status };
+  createTrack(course: any, semester: string, status: string) {
+    const track: Track = {
+      id: null,
+      course_id: course.course_id,
+      course_code: course.course_code + " " + course.course_number,
+      semester: semester,
+      status: status
+    };
     this.httpClient.post<{message: string, trackId: string}>("http://localhost:3000/api/tracks/create", track)
       .subscribe(
         (response) => {
           track.id = response.trackId;
-          console.log(track);
           this.tracks.push(track);  // updates local tracks array upon confirmation of successful add on server side
           this.tracksUpdated.next([...this.tracks]);  // "emits" that tracks have been updated
           this.router.navigate(["/tracks/list"]);  // redirect to track list after adding post
@@ -34,7 +39,7 @@ export class TracksService {
         (response) => {
           return response.tracks.map( (track) => {  // this map is the built-in
             return {
-              course: track.course,
+              course_code: track.course_code,
               semester: track.semester,
               status: track.status,
               id: track._id  // this fixes the issue that Mongo defaults the id field to _id and our frontend model requires "id"
@@ -50,7 +55,7 @@ export class TracksService {
       );  // Angular automatically unsubscribes for us
   }
 
-  getPostUpdateListener() {
+  getTrackUpdateListener() {
     return this.tracksUpdated.asObservable();  // returns an object from which we can listen but not emit
   }
 }

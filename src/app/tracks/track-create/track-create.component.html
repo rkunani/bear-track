@@ -3,16 +3,16 @@
   <form (submit)="onCreateTrack(trackForm)" #trackForm="ngForm" *ngIf="!isLoading">
     <mat-form-field appearance="fill">
       <mat-label>Course</mat-label>
-      <mat-select ngModel name="course">
+      <mat-select ngModel name="course" required>  <!-- this name is the attribute that appears in form.value -->
         <mat-option *ngFor="let course of courses" [value]="course">
-          {{ course }}
+          {{ course.course_code + " " + course.course_number + ": " + course.course_name }}
         </mat-option>
       </mat-select>
     </mat-form-field>
 
     <mat-form-field appearance="fill">
       <mat-label>Semester</mat-label>
-      <mat-select ngModel name="semester">
+      <mat-select ngModel name="semester" required>
         <mat-option *ngFor="let sem of semesters" [value]="sem">  <!-- [value] says which attribute which actually get submitted to the form -->
           {{ sem }}
         </mat-option>
@@ -21,7 +21,7 @@
 
     <mat-form-field appearance="fill">
       <mat-label>Status</mat-label>
-      <mat-select ngModel name="status">
+      <mat-select ngModel name="status" required>
         <mat-option *ngFor="let s of statuses" [value]="s">  <!-- [value] says which attribute which actually get submitted to the form -->
           {{ s }}
         </mat-option>

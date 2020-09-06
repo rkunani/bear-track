@@ -21,7 +21,7 @@ export class TrackListComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.isLoading = true;
     this.tracksService.getTracks();  // starts an async HTTP get that the next line sets up a listener for
-    this.tracksSub = this.tracksService.getPostUpdateListener().subscribe(
+    this.tracksSub = this.tracksService.getTrackUpdateListener().subscribe(
       (tracks: Track[]) => {
         this.isLoading = false;
         this.tracks = tracks;
@@ -38,6 +38,7 @@ export class TrackListComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.authSub.unsubscribe();
+    this.tracksSub.unsubscribe();
   }
 
   onDeleteTrack() {

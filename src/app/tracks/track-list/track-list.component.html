@@ -4,7 +4,7 @@
   <mat-accordion *ngIf="(tracks.length > 0)">
     <mat-expansion-panel *ngFor="let track of tracks">
       <mat-expansion-panel-header>
-        {{ track.course + ", " + track.semester}}
+        {{ track.course_code + ", " + track.semester}}
       </mat-expansion-panel-header>
       <p>{{ "Notify me when the course is " + track.status }}</p>
       <mat-action-row *ngIf="userIsAuthenticated">

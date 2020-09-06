@@ -27,6 +27,7 @@
     "mongoose-unique-validator": "^2.0.3",
     "node-cron": "^2.0.3",
     "rxjs": "~6.5.5",
+    "shelljs": "^0.8.4",
     "tslib": "^2.0.0",
     "twilio": "^3.49.1",
     "zone.js": "~0.10.3"

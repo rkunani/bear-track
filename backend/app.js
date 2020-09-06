@@ -3,10 +3,11 @@ const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const jwt = require('jsonwebtoken');  // third-party package for creating tokens
 const cron = require('node-cron');
+const send_message = require('./send_messages');
 
-cron.schedule("*/10 * * * * *", () => {
-  console.log("running a task every 10 seconds");
-});
+mongoose.connect("mongodb+srv://rkunani:dbpwd@cluster0.okwcq.mongodb.net/beartrack-dev?retryWrites=true&w=majority")
+  .then(() => { console.log("Connected to database!"); })
+  .catch((error) => { console.log("Connection failed!"); });
 
 const accountSid = 'ACfbeb368ee751507696a800f8a88394e0';
 const authToken = '688d1b16d2cde7680a912a273a57cfeb';
@@ -18,10 +19,6 @@ const app = express();
 const User = require('./models/user');
 const Track = require('./models/track');
 const checkAuth = require('./middleware/check-auth');
-
-mongoose.connect("mongodb+srv://rkunani:dbpwd@cluster0.okwcq.mongodb.net/beartrack-dev?retryWrites=true&w=majority")
-  .then(() => { console.log("Connected to database!"); })
-  .catch((error) => { console.log("Connection failed!"); });
 
 app.use(bodyParser.json());
 
@@ -126,5 +123,11 @@ app.delete('/api/tracks/:trackId', checkAuth, (req, res, next) => {
       }
     });
 })
+
+cron.schedule("*/10 * * * * *", () => {
+  console.log("---------------------");
+  send_message();
+  console.log("done sending messages");  // this line executes before the messages are actually sent (not a problem?)
+});
 
 module.exports = app;  // exports the app

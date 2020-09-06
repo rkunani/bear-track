@@ -22,6 +22,7 @@ import { SignUpComponent } from './auth/signup/signup.component';
 import { LoginComponent } from './auth/login/login.component';
 import { TrackCreateComponent } from './tracks/track-create/track-create.component';
 import { AuthInterceptor } from './auth/auth-interceptor';
+import { FooterComponent } from './footer/footer.component';
 
 @NgModule({
   declarations: [
@@ -31,7 +32,8 @@ import { AuthInterceptor } from './auth/auth-interceptor';
     WelcomeComponent,
     SignUpComponent,
     LoginComponent,
-    TrackCreateComponent
+    TrackCreateComponent,
+    FooterComponent
   ],
   imports: [
     BrowserModule,

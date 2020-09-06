@@ -53,6 +53,20 @@ export class AuthService {
     this.router.navigate(['/login']);
   }
 
+  autoAuthUser() {  // automatically authenticate user with local storage info
+    const authInformation = this.getAuthData();
+    if (authInformation) {
+      const now = new Date();
+      const expiresIn = authInformation.expirationDate.getTime() - now.getTime();
+      if (expiresIn > 0) {
+        this.token = authInformation.token;
+        this.isAuthenticated = true;
+        this.setTokenTimer(expiresIn / 1000);  // input requires duration in seconds
+        this.authSubject.next(true);
+      }
+    }
+  }
+
   private saveAuthData(token: string, expirationDate: Date) {
     localStorage.setItem('token', token);
     localStorage.setItem('expiration', expirationDate.toISOString());

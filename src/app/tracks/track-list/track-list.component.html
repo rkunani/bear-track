@@ -1,6 +1,6 @@
+<h2 class="center">My Tracks</h2>
 <mat-spinner *ngIf="isLoading"></mat-spinner>
 <div *ngIf="!isLoading">
-  <h2 class="center">My Tracks</h2>
   <mat-accordion *ngIf="(tracks.length > 0)">
     <mat-expansion-panel *ngFor="let track of tracks">
       <mat-expansion-panel-header>

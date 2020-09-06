@@ -2,6 +2,11 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const jwt = require('jsonwebtoken');  // third-party package for creating tokens
+const cron = require('node-cron');
+
+cron.schedule("*/10 * * * * *", () => {
+  console.log("running a task every 10 seconds");
+});
 
 const accountSid = 'ACfbeb368ee751507696a800f8a88394e0';
 const authToken = '688d1b16d2cde7680a912a273a57cfeb';

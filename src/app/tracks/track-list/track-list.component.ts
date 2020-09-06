@@ -41,8 +41,8 @@ export class TrackListComponent implements OnInit, OnDestroy {
     this.tracksSub.unsubscribe();
   }
 
-  onDeleteTrack() {
-    console.log("deleting track");
+  onDeleteTrack(trackId: string) {
+    this.tracksService.deleteTrack(trackId);
   }
 
 }

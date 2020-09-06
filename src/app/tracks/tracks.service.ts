@@ -55,6 +55,15 @@ export class TracksService {
       );  // Angular automatically unsubscribes for us
   }
 
+  deleteTrack(trackId: string) {
+    this.httpClient.delete("http://localhost:3000/api/tracks/" + trackId)
+      .subscribe( (response) => {
+        const updatedTracks = this.tracks.filter( (track) => track.id !== trackId );
+        this.tracks = updatedTracks;
+        this.tracksUpdated.next([...this.tracks]);
+      } );
+  }
+
   getTrackUpdateListener() {
     return this.tracksUpdated.asObservable();  // returns an object from which we can listen but not emit
   }

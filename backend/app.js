@@ -108,4 +108,12 @@ app.get('/api/tracks', checkAuth, (req, res, next) => {
     })
 });
 
+// delete a track
+app.delete('/api/tracks/:trackId', checkAuth, (req, res, next) => {
+  Track.deleteOne({ _id: req.params.trackId })
+    .then( (result) => {
+      res.status(200).json({message: "Post deleted!"});
+    });
+})
+
 module.exports = app;  // exports the app

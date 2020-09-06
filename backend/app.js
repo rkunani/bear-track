@@ -86,7 +86,8 @@ app.post('/api/tracks/create', checkAuth, (req, res, next) => {
     course_id: req.body.course_id,
     course_code: req.body.course_code,
     semester: req.body.semester,
-    status: req.body.status
+    status: req.body.status,
+    creator: req.userData.userId
   });
   track.save()
     .then( (newTrack) => {
@@ -97,9 +98,9 @@ app.post('/api/tracks/create', checkAuth, (req, res, next) => {
     });
 });
 
-// fetch all tracks
+// fetch all tracks by the current user
 app.get('/api/tracks', checkAuth, (req, res, next) => {
-  Track.find()
+  Track.find({ creator: req.userData.userId })
     .then((documents) => {
       return res.status(200).json({
         message: "Tracks fetched successfully!",

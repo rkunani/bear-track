@@ -12,6 +12,7 @@ const app = express();
 
 const User = require('./models/user');
 const Track = require('./models/track');
+const checkAuth = require('./middleware/check-auth');
 
 mongoose.connect("mongodb+srv://rkunani:dbpwd@cluster0.okwcq.mongodb.net/beartrack-dev?retryWrites=true&w=majority")
   .then(() => { console.log("Connected to database!"); })
@@ -80,7 +81,7 @@ app.post('/api/user/login', (req, res, next) => {
 });
 
 // create a new track
-app.post('/api/tracks/create', (req, res, next) => {
+app.post('/api/tracks/create', checkAuth, (req, res, next) => {
   const track = new Track({
     course_id: req.body.course_id,
     course_code: req.body.course_code,
@@ -97,7 +98,7 @@ app.post('/api/tracks/create', (req, res, next) => {
 });
 
 // fetch all tracks
-app.get('/api/tracks', (req, res, next) => {
+app.get('/api/tracks', checkAuth, (req, res, next) => {
   Track.find()
     .then((documents) => {
       return res.status(200).json({

@@ -7,7 +7,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
 import {MatFormFieldModule} from '@angular/material/form-field';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatExpansionModule } from '@angular/material/expansion';
 import {MatSelectModule} from '@angular/material/select';
@@ -21,6 +21,7 @@ import { WelcomeComponent } from './welcome/welcome.component';
 import { SignUpComponent } from './auth/signup/signup.component';
 import { LoginComponent } from './auth/login/login.component';
 import { TrackCreateComponent } from './tracks/track-create/track-create.component';
+import { AuthInterceptor } from './auth/auth-interceptor';
 
 @NgModule({
   declarations: [
@@ -47,7 +48,7 @@ import { TrackCreateComponent } from './tracks/track-create/track-create.compone
     MatExpansionModule,
     MatSelectModule
   ],
-  providers: [],
+  providers: [{ provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }],  // multi tells Angular to add AuthInterceptor on top of the HTTP Interceptors
   bootstrap: [AppComponent]
 })
 export class AppModule { }

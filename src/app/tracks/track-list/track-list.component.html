@@ -8,8 +8,8 @@
       </mat-expansion-panel-header>
       <p>{{ "Text me when the course is " + track.status }}</p>
       <mat-action-row *ngIf="userIsAuthenticated">
-        <a mat-button color="primary" [routerLink]="['/']">EDIT</a>
-        <button mat-button color="warn" (click)="onDeleteTrack(track.id)">DELETE</button>
+        <!-- <a mat-button color="primary" [routerLink]="['/']">EDIT</a> -->
+        <button mat-button color="warn" (click)="onDeleteTrack(track.id)">DELETE TRACK</button>
       </mat-action-row>
     </mat-expansion-panel>
   </mat-accordion>

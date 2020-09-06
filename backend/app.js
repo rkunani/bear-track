@@ -1,6 +1,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
+const jwt = require('jsonwebtoken');  // third-party package for creating tokens
 
 const accountSid = 'ACfbeb368ee751507696a800f8a88394e0';
 const authToken = '688d1b16d2cde7680a912a273a57cfeb';
@@ -64,8 +65,14 @@ app.post('/api/user/login', (req, res, next) => {
       if (user.name != req.body.name) {
         return res.status(404).json({ message: "No user with name " + req.body.name + " and phone number " + req.body.phone + " exists" });
       }
-      return res.status(200).json({ message: "User logged in!" });
       // send the token
+      fetchedUser = user;
+      const token = jwt.sign(
+        { name: fetchedUser.name, phone: fetchedUser.phone, userId: fetchedUser._id },  // input to token hash
+        "secret_this_should_be_longer",  // secret to generate/validate token
+        { expiresIn: "1h" }  // options for token
+      );
+      return res.status(200).json( { token: token, expiresIn: 3600 });  // expiresIn is measured in seconds
     })
     .catch( (error) => {
       return res.status(404).json( { message: "Authentication failed" });

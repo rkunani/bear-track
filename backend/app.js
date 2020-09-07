@@ -124,7 +124,7 @@ app.delete('/api/tracks/:trackId', checkAuth, (req, res, next) => {
     });
 })
 
-cron.schedule("*/10 * * * * *", () => {  // send every 10 secs
+cron.schedule("*/5 * * * *", () => {  // send every 5 mins
   console.log("---------------------");
   send_message();
 });

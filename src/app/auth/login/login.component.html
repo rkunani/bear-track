@@ -1,8 +1,8 @@
 <mat-card>
   <mat-spinner *ngIf="isLoading"></mat-spinner>
-  <h3 *ngIf="!isLoading">Log in with your name and cell phone #</h3>
+  <h3 *ngIf="!isLoading" class="font">Log in with your name and cell phone #</h3>
   <form (submit)="onLogin(loginForm)" #loginForm="ngForm" *ngIf="!isLoading">
-    <mat-form-field>
+    <mat-form-field class="font">
       <input
       matInput
       type="text"
@@ -12,9 +12,9 @@
       #nameInput="ngModel"
       name="name"
       ngModel>
-      <mat-error *ngIf="nameInput.invalid">Name must be at least 2 letters</mat-error>
+      <mat-error *ngIf="nameInput.invalid" class="font">Name must be at least 2 letters</mat-error>
     </mat-form-field>
-    <mat-form-field>
+    <mat-form-field class="font">
       <input
       matInput
       type="tel"
@@ -24,8 +24,8 @@
       #phoneInput="ngModel"
       name="phone"
       ngModel>
-      <mat-error *ngIf="phoneInput.invalid">Phone number must be in xxx-xxx-xxxx format</mat-error>
+      <mat-error *ngIf="phoneInput.invalid" class="font">Phone number must be in xxx-xxx-xxxx format</mat-error>
     </mat-form-field>
-    <button mat-raised-button color="primary" type="submit">Log In</button>
+    <button mat-raised-button color="primary" type="submit" class="font">Log In</button>
   </form>
 </mat-card>

@@ -1,0 +1,9 @@
+{
+  "env": {
+    "MONGO_PWD": "dbpwd",
+    "JWT_KEY": "secret_this_should_be_longer",
+    "TWILIO_ACCT_SID": "ACfbeb368ee751507696a800f8a88394e0",
+    "TWILIO_AUTH_TOKEN": "688d1b16d2cde7680a912a273a57cfeb",
+    "TWILIO_NUMBER": "+15102885067"
+  }
+}

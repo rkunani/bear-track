@@ -3,6 +3,9 @@ import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { Subject } from 'rxjs';
 
+import { environment } from '../../environments/environment';
+
+const BACKEND_URL = environment.backendUrl + "user";
 
 @Injectable({ providedIn: 'root'})  // makes Angular aware of this service, creates only one instance for the app
 export class AuthService {
@@ -24,11 +27,11 @@ export class AuthService {
 
   createUser(name: string, phone: string) {
     // in future, maybe make a model for the payload
-    return this.httpClient.post("http://localhost:3000/api/user/signup", {name: name, phone: phone});  // return promise to component
+    return this.httpClient.post(BACKEND_URL + "/signup", {name: name, phone: phone});  // return promise to component
   }
 
   login(name: string, phone: string) {
-    this.httpClient.post<{token: string, expiresIn: number}>("http://localhost:3000/api/user/login", {name: name, phone: phone})
+    this.httpClient.post<{token: string, expiresIn: number}>(BACKEND_URL + "/login", {name: name, phone: phone})
       .subscribe(
         (response) => {
           this.token = response.token;  // saves the token in the service to be attached as a header to outgoing requests

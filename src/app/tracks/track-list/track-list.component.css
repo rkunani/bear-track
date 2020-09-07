@@ -1,7 +1,14 @@
 .center {
-  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 mat-spinner {
   margin: auto;
+}
+
+.center-button {
+  margin: 0 auto;
+  display: block;
 }

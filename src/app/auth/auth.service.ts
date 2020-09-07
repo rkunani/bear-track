@@ -29,19 +29,24 @@ export class AuthService {
 
   login(name: string, phone: string) {
     this.httpClient.post<{token: string, expiresIn: number}>("http://localhost:3000/api/user/login", {name: name, phone: phone})
-      .subscribe( (response) => {
-        this.token = response.token;  // saves the token in the service to be attached as a header to outgoing requests
-        if (this.token) {
-          const expiresInDuration = response.expiresIn;  // in units of seconds
-          this.setTokenTimer(expiresInDuration);
-          this.isAuthenticated = true;
-          this.authSubject.next(true);
-          const now = Date.now();
-          const expirationDate = new Date(now + (expiresInDuration * 1000));
-          this.saveAuthData(this.token, expirationDate);
-          this.router.navigate(['/tracks/list']);
+      .subscribe(
+        (response) => {
+          this.token = response.token;  // saves the token in the service to be attached as a header to outgoing requests
+          if (this.token) {
+            const expiresInDuration = response.expiresIn;  // in units of seconds
+            this.setTokenTimer(expiresInDuration);
+            this.isAuthenticated = true;
+            this.authSubject.next(true);
+            const now = Date.now();
+            const expirationDate = new Date(now + (expiresInDuration * 1000));
+            this.saveAuthData(this.token, expirationDate);
+            this.router.navigate(['/tracks/list']);
+          }
+        },
+        (error) => {
+          alert(error.error.message);
         }
-      });
+    );
   }
 
   logout() {

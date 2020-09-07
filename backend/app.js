@@ -5,7 +5,8 @@ const jwt = require('jsonwebtoken');  // third-party package for creating tokens
 const cron = require('node-cron');
 const send_message = require('./send_messages');
 
-mongoose.connect("mongodb+srv://rkunani:" + process.env.MONGO_PWD + "@cluster0.okwcq.mongodb.net/beartrack-dev?retryWrites=true&w=majority")
+mongoose.connect("mongodb+srv://rkunani:" + process.env.MONGO_PWD +
+                 "@cluster0.okwcq.mongodb.net/" + process.env.MONGO_DB_NAME + "?retryWrites=true&w=majority")
   .then(() => { console.log("Connected to database!"); })
   .catch((error) => { console.log("Connection failed!"); });
 

@@ -1,5 +1,6 @@
 <mat-card *ngIf="!isConfirmed">
   <mat-spinner *ngIf="isLoading"></mat-spinner>
+  <h3 *ngIf="!isLoading">Sign up to get a text when that class you've been keeping an eye on has an open seat!</h3>
   <form (submit)="onSignUp(signUpForm)" #signUpForm="ngForm" *ngIf="!isLoading && !isConfirmed">
     <mat-form-field>
       <input
@@ -7,7 +8,7 @@
       type="text"
       required
       minlength=2
-      placeholder="Name"
+      placeholder="Your Name (e.g. Oski)"
       #nameInput="ngModel"
       name="name"
       ngModel>
@@ -19,11 +20,11 @@
       type="tel"
       required
       pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"
-      placeholder="Phone number to receive text notifications"
+      placeholder="Your Valid U.S. Cell # (e.g. 123-456-7890)"
       #phoneInput="ngModel"
       name="phone"
       ngModel>
-      <mat-error *ngIf="phoneInput.invalid">Please enter a phone number in xxx-xxx-xxxx format</mat-error>
+      <mat-error *ngIf="phoneInput.invalid">Phone number must be in xxx-xxx-xxxx format</mat-error>
     </mat-form-field>
     <button mat-raised-button color="primary" type="submit">Sign Up</button>
   </form>
@@ -31,5 +32,6 @@
 
 <div *ngIf="isConfirmed" class="center">
   <h3>Thank you for signing up!</h3>
-  Please wait for a verification text from us. If you don't receive a text in 10 minutes, sign up again.
+  <p>Please wait for a verification text from BearTrack. If you don't receive a text in 10 minutes, sign up again.</p>
+  <p>Click <a routerLink="/login">here</a> to log in.</p>
 </div>

@@ -1,5 +1,6 @@
 <mat-card>
   <mat-spinner *ngIf="isLoading"></mat-spinner>
+  <h3 *ngIf="!isLoading">Log in with your name and cell phone #</h3>
   <form (submit)="onLogin(loginForm)" #loginForm="ngForm" *ngIf="!isLoading">
     <mat-form-field>
       <input
@@ -7,7 +8,7 @@
       type="text"
       required
       minlength=2
-      placeholder="Name"
+      placeholder="Your Name (e.g. Oski)"
       #nameInput="ngModel"
       name="name"
       ngModel>
@@ -19,7 +20,7 @@
       type="tel"
       required
       pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"
-      placeholder="Phone number you registered to receive notifications from us"
+      placeholder="Your Valid U.S. Cell # (e.g. 123-456-7890)"
       #phoneInput="ngModel"
       name="phone"
       ngModel>

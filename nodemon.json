@@ -1,5 +1,6 @@
 {
   "env": {
+    "MONGO_DB_NAME": "beartrack-dev",
     "MONGO_PWD": "dbpwd",
     "JWT_KEY": "secret_this_should_be_longer",
     "TWILIO_ACCT_SID": "ACfbeb368ee751507696a800f8a88394e0",

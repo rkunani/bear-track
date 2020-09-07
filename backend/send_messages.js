@@ -37,7 +37,7 @@ module.exports = () => {
               // find the creator
               User.findOne({ _id: creator })
                 .then( (user) => {
-                  const message = util.format("From BearTrack: Hi %s, %s is %s!", user.name, track.course_code, status);
+                  const message = util.format("From BearTrack:\nHi %s, %s is %s!", user.name, track.course_code, status);
                   console.log(message);
                   // send a message
                   twilioClient.messages.create({

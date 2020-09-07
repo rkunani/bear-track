@@ -46,7 +46,7 @@ app.post('/api/user/signup', (req, res, next) => {
       });
       // console.log("sending text to " + formattedPhone);
       twilioClient.messages.create({
-         body: "Welcome to BearTrack, " + req.body.name + "!",
+         body: "From BearTrack:\nWelcome to BearTrack, " + req.body.name + "!",
          from: twilioNumber,
          to: formattedPhone
       }).then(message => console.log(message.sid));

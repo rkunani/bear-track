@@ -5,6 +5,9 @@ import { Subject } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 import { Track } from './track.model';
+import { environment } from '../../environments/environment';
+
+const BACKEND_URL = environment.backendUrl + "tracks/";
 
 @Injectable({ providedIn: 'root'})  // makes Angular aware of this service, creates only one instance for the app
 export class TracksService {
@@ -22,7 +25,7 @@ export class TracksService {
       semester: semester,
       status: status
     };
-    this.httpClient.post<{message: string, trackId: string}>("http://localhost:3000/api/tracks/create", track)
+    this.httpClient.post<{message: string, trackId: string}>(BACKEND_URL + "create", track)
       .subscribe(
         (response) => {
           track.id = response.trackId;
@@ -34,7 +37,7 @@ export class TracksService {
   }
 
   getTracks() {
-    this.httpClient.get<{message: string, tracks: any}>("http://localhost:3000/api/tracks")
+    this.httpClient.get<{message: string, tracks: any}>(BACKEND_URL)
       .pipe(map(  // this map is the rxjs operator
         (response) => {
           return response.tracks.map( (track) => {  // this map is the built-in
@@ -56,7 +59,7 @@ export class TracksService {
   }
 
   deleteTrack(trackId: string) {
-    this.httpClient.delete("http://localhost:3000/api/tracks/" + trackId)
+    this.httpClient.delete(BACKEND_URL + trackId)
       .subscribe( (response) => {
         const updatedTracks = this.tracks.filter( (track) => track.id !== trackId );
         this.tracks = updatedTracks;

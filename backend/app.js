@@ -5,14 +5,14 @@ const jwt = require('jsonwebtoken');  // third-party package for creating tokens
 const cron = require('node-cron');
 const send_message = require('./send_messages');
 
-mongoose.connect("mongodb+srv://rkunani:dbpwd@cluster0.okwcq.mongodb.net/beartrack-dev?retryWrites=true&w=majority")
+mongoose.connect("mongodb+srv://rkunani:" + process.env.MONGO_PWD + "@cluster0.okwcq.mongodb.net/beartrack-dev?retryWrites=true&w=majority")
   .then(() => { console.log("Connected to database!"); })
   .catch((error) => { console.log("Connection failed!"); });
 
-const accountSid = 'ACfbeb368ee751507696a800f8a88394e0';
-const authToken = '688d1b16d2cde7680a912a273a57cfeb';
+const accountSid = process.env.TWILIO_ACCT_SID;
+const authToken = process.env.TWILIO_AUTH_TOKEN;
 const twilioClient = require('twilio')(accountSid, authToken);
-const twilioNumber = '+15102885067';
+const twilioNumber = process.env.TWILIO_NUMBER;
 
 const app = express();
 
@@ -72,7 +72,7 @@ app.post('/api/user/login', (req, res, next) => {
       fetchedUser = user;
       const token = jwt.sign(
         { name: fetchedUser.name, phone: fetchedUser.phone, userId: fetchedUser._id },  // input to token hash
-        "secret_this_should_be_longer",  // secret to generate/validate token
+        process.env.JWT_KEY,  // secret to generate/validate token
         { expiresIn: "1h" }  // options for token
       );
       return res.status(200).json( { token: token, expiresIn: 3600 });  // expiresIn is measured in seconds

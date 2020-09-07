@@ -52,7 +52,7 @@ app.post('/api/user/signup', (req, res, next) => {
       // }).then(message => console.log(message.sid));
     })
     .catch( (error) => {
-      return res.status(500).json({error: error});  // will catch uniqueness errors
+      return res.status(500).json({message: "User with phone number " + req.body.phone + " already exists"});  // will catch uniqueness errors
     });
 });
 

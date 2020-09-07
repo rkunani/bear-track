@@ -9,7 +9,6 @@ import { AuthService } from '../auth.service';
 export class SignUpComponent {
   isLoading = false;
   isConfirmed = false;
-  phoneIsInvalid = false;
 
   constructor(private authService: AuthService) {
 
@@ -28,9 +27,8 @@ export class SignUpComponent {
           console.log(response);
         },
         (error) => {
-          this.phoneIsInvalid = true;
           this.isLoading = false;
-          console.log("Phone number is already in use");
+          alert(error.error.message);
         }
       );
   }

@@ -44,12 +44,12 @@ app.post('/api/user/signup', (req, res, next) => {
         message: "User added!",
         result: result
       });
-      console.log("sending text to " + formattedPhone);
-      // twilioClient.messages.create({
-      //    body: 'Hello' + req.body.name + '!',
-      //    from: twilioNumber,
-      //    to: formattedPhone
-      // }).then(message => console.log(message.sid));
+      // console.log("sending text to " + formattedPhone);
+      twilioClient.messages.create({
+         body: "Welcome to BearTrack, " + req.body.name + "!",
+         from: twilioNumber,
+         to: formattedPhone
+      }).then(message => console.log(message.sid));
     })
     .catch( (error) => {
       return res.status(500).json({message: "User with phone number " + req.body.phone + " already exists"});  // will catch uniqueness errors

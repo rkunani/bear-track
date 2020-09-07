@@ -37,14 +37,14 @@ module.exports = () => {
               // find the creator
               User.findOne({ _id: creator })
                 .then( (user) => {
-                  const message = util.format("Send to %s: Hi %s, %s is %s!", user.phone, user.name, track.course_code, status);
+                  const message = util.format("From BearTrack: Hi %s, %s is %s!", user.name, track.course_code, status);
                   console.log(message);
                   // send a message
-                  // twilioClient.messages.create({
-                  //    body: 'Hello' + req.body.name + '!',
-                  //    from: twilioNumber,
-                  //    to: formattedPhone
-                  // }).then(message => console.log(message.sid));
+                  twilioClient.messages.create({
+                     body: message,
+                     from: twilioNumber,
+                     to: user.phone
+                  }).then(message => console.log(message.sid));
                 })
             }
           })
@@ -57,5 +57,3 @@ module.exports = () => {
       console.log(error);
     });
 }
-
-console.log("end of send_messages");

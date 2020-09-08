@@ -14,6 +14,18 @@ export class SignUpComponent {
 
   }
 
+  validatePhoneNo(field) {
+    var phoneNumDigits = field.value.replace(/\D/g, '');
+
+    var formattedNumber = phoneNumDigits;
+    if (phoneNumDigits.length >= 6)
+      formattedNumber = phoneNumDigits.substring(0, 3) + '-' + phoneNumDigits.substring(3, 6) + '-' + phoneNumDigits.substring(6);
+    else if (phoneNumDigits.length >= 3)
+      formattedNumber = phoneNumDigits.substring(0, 3) + '-' + phoneNumDigits.substring(3);
+
+    field.value = formattedNumber;
+  }
+
   onSignUp(form: NgForm) {
     if (form.invalid) {
       return;

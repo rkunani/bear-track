@@ -15,7 +15,7 @@
       <mat-error *ngIf="nameInput.invalid" class="font">Name must be at least 2 letters</mat-error>
     </mat-form-field>
     <mat-form-field class="font">
-      <input
+      <!-- <input
       matInput
       type="tel"
       required
@@ -24,7 +24,18 @@
       #phoneInput="ngModel"
       name="phone"
       ngModel>
-      <mat-error *ngIf="phoneInput.invalid" class="font">Phone number must be in xxx-xxx-xxxx format</mat-error>
+      <mat-error *ngIf="phoneInput.invalid" class="font">Phone number must be in xxx-xxx-xxxx format</mat-error> -->
+      <input
+      matInput
+      type="text"
+      required
+      pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"
+      placeholder="Your Valid U.S. Cell # (e.g. 123-456-7890)"
+      #phoneInput="ngModel"
+      name="phone"
+      (input)="validatePhoneNo($event.target)"
+      ngModel>
+      <mat-error *ngIf="phoneInput.invalid">Phone number must be in xxx-xxx-xxxx format</mat-error>
     </mat-form-field>
     <button mat-raised-button color="primary" type="submit" class="font">Log In</button>
   </form>

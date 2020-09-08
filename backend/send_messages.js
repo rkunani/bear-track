@@ -2,6 +2,7 @@ const Track = require('./models/track');
 const User = require('./models/user');
 const axios = require('axios');
 const util = require('util');
+const { time } = require('console');
 
 const accountSid = 'ACfbeb368ee751507696a800f8a88394e0';
 const authToken = '688d1b16d2cde7680a912a273a57cfeb';
@@ -29,6 +30,7 @@ module.exports = () => {
           .then( (response) => {
             const enrollmentHistory = response.data.data;
             const currentEnrollment = enrollmentHistory[enrollmentHistory.length - 1];
+            console.log(currentEnrollment);
             if (isRequestedStatus(currentEnrollment, track.status)) {
               // find the creator
               User.findOne({ _id: track.creator })
@@ -41,18 +43,21 @@ module.exports = () => {
                       body: message,
                       from: twilioNumber,
                       to: user.phone
-                    }).then(message => console.log("Sent message: " + message.sid));
+                    }).then(message => console.log("Sent message: " + message.sid))
+                      .catch( (error) => { console.log("Could not send message"); });
                     // mark the track as notified
                     track.notified = true;
                     Track.updateOne({ _id: track._id }, track)
                       .then( (result) => { console.log("Updated track to 'notified': true"); });
                   }
-                });
+                })
+                .catch( (error) => { console.log("could not find creator"); });
             }
           })
           .catch( (error) => {
-            // unable to get enrollment info for this class
-            console.log("GET request to " + requestURL + " failed");
+            // weird situation where request has status code 500 but enrollment data is still returned,
+            // so the request enters both the then and catch blocks
+            // (theoretically) unable to get enrollment info for this class
           });
       }
     })

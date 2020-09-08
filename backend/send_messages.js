@@ -22,38 +22,42 @@ module.exports = () => {
   Track.find()
     .then( (tracks) => {
       for (track of tracks) {
-        const courseId = track.course_id;
-        const semester = track.semester;
-        const status = track.status;
-        const creator = track.creator;
-        const term = semester.split(" ")[0].toLowerCase();
-        const year = semester.split(" ")[1];
-        const requestURL = util.format("https://www.berkeleytime.com/api/enrollment/aggregate/%s/%s/%s/", courseId, term, year);
+        const term = track.semester.split(" ")[0].toLowerCase();
+        const year = track.semester.split(" ")[1];
+        const requestURL = util.format("https://www.berkeleytime.com/api/enrollment/aggregate/%s/%s/%s/", track.course_id, term, year);
         axios.get(requestURL)
           .then( (response) => {
             const enrollmentHistory = response.data.data;
             const currentEnrollment = enrollmentHistory[enrollmentHistory.length - 1];
-            if (isRequestedStatus(currentEnrollment, status)) {
+            if (isRequestedStatus(currentEnrollment, track.status)) {
               // find the creator
-              User.findOne({ _id: creator })
+              User.findOne({ _id: track.creator })
                 .then( (user) => {
-                  const message = util.format("From BearTrack:\nHi %s, %s is %s!", user.name, track.course_code, status);
-                  console.log(message);
-                  // send a message
-                  twilioClient.messages.create({
-                     body: message,
-                     from: twilioNumber,
-                     to: user.phone
-                  }).then(message => console.log(message.sid));
-                })
+                  if (!track.notified) {  // only send text once per track
+                    const message = util.format("From BearTrack:\nHi %s, %s is %s!", user.name, track.course_code, track.status);
+                    console.log(message);
+                    // send a message
+                    twilioClient.messages.create({
+                      body: message,
+                      from: twilioNumber,
+                      to: user.phone
+                    }).then(message => console.log("Sent message: " + message.sid));
+                    // mark the track as notified
+                    track.notified = true;
+                    Track.updateOne({ _id: track._id }, track)
+                      .then( (result) => { console.log("Updated track to 'notified': true"); });
+                  }
+                });
             }
           })
           .catch( (error) => {
-            console.log(error);
+            // unable to get enrollment info for this class
+            console.log("GET request to " + requestURL + " failed");
           });
       }
     })
     .catch( (error) => {
+      // unable to get tracks
       console.log(error);
     });
 }

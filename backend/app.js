@@ -90,7 +90,8 @@ app.post('/api/tracks/create', checkAuth, (req, res, next) => {
     course_code: req.body.course_code,
     semester: req.body.semester,
     status: req.body.status,
-    creator: req.userData.userId
+    creator: req.userData.userId,
+    notified: false
   });
   track.save()
     .then( (newTrack) => {

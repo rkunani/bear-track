@@ -5,7 +5,8 @@ const trackSchema = mongoose.Schema({
   course_code: {type: String, required: true },
   semester: { type: String, required: true },
   status: { type: String, required: true },
-  creator: { type: mongoose.Schema.Types.ObjectId, ref: "User", required: true }
+  creator: { type: mongoose.Schema.Types.ObjectId, ref: "User", required: true },
+  notified: { type: Boolean, required: true }
 })
 
 module.exports = mongoose.model("Track", trackSchema);

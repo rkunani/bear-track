@@ -17,12 +17,13 @@
     <mat-form-field class="font">
       <input
       matInput
-      type="tel"
+      type="text"
       required
       pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"
       placeholder="Your Valid U.S. Cell # (e.g. 123-456-7890)"
       #phoneInput="ngModel"
       name="phone"
+      (input)="validatePhoneNo($event.target)"
       ngModel>
       <mat-error *ngIf="phoneInput.invalid">Phone number must be in xxx-xxx-xxxx format</mat-error>
     </mat-form-field>

@@ -3,9 +3,8 @@
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 10.0.7.
 
 ## Changes to be made
-- Only notify people once (change Track schema to have a reminded? attribute)
+- Update track list to reflect that user has been notified already
 - Add emojis to UI
-- Change font to be consistent everywhere
 
 ## Development server
 

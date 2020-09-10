@@ -4,10 +4,10 @@ const axios = require('axios');
 const util = require('util');
 const { time } = require('console');
 
-const accountSid = 'ACfbeb368ee751507696a800f8a88394e0';
-const authToken = '688d1b16d2cde7680a912a273a57cfeb';
+const accountSid = process.env.TWILIO_ACCT_SID;
+const authToken = process.env.TWILIO_AUTH_TOKEN;
 const twilioClient = require('twilio')(accountSid, authToken);
-const twilioNumber = '+15102885067';
+const twilioNumber = process.env.TWILIO_NUMBER;
 
 function isRequestedStatus(currentEnrollment, status) {
   const isOpen = (currentEnrollment.enrolled < currentEnrollment.enrolled_max);
@@ -30,7 +30,6 @@ module.exports = () => {
           .then( (response) => {
             const enrollmentHistory = response.data.data;
             const currentEnrollment = enrollmentHistory[enrollmentHistory.length - 1];
-            console.log(currentEnrollment);
             if (isRequestedStatus(currentEnrollment, track.status)) {
               // find the creator
               User.findOne({ _id: track.creator })
@@ -58,11 +57,12 @@ module.exports = () => {
             // weird situation where request has status code 500 but enrollment data is still returned,
             // so the request enters both the then and catch blocks
             // (theoretically) unable to get enrollment info for this class
+            console.log("GET request to " + requestURL + " failed!");
           });
       }
     })
     .catch( (error) => {
       // unable to get tracks
-      console.log(error);
+      console.log("unable to fetch tracks from DB");
     });
 }

@@ -5,6 +5,7 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 ## Changes to be made
 - Update track list to reflect that user has been notified already
 - Add emojis to UI
+- Input sanitization on name (trailing spaces)
 
 ## Development server
 

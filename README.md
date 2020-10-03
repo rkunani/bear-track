@@ -6,6 +6,7 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 - Update track list to reflect that user has been notified already (have a button to re-active track)
 - Add emojis to UI
 - Provide functionality to edit a track
+- Handle case when GET request to Berkeleytime fails
 
 ## Development server
 

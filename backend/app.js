@@ -33,21 +33,22 @@ app.use((req, res, next) => {
 // register a new user
 app.post('/api/user/signup', (req, res, next) => {
   const formattedPhone = req.body.phone.replace(/-/g, "");  // weird syntax replaces all "-" instead of just one
+  const cleanedName = req.body.name.trim() // remove leading and trailing spaces
   // create a new user
   const user = new User({
-    name: req.body.name,
+    name: cleanedName,
     phone: formattedPhone
   })
-  // send data to DB
+  // save user to DB
   user.save()
     .then( (result) => {
       res.status(201).json({
         message: "User added!",
         result: result
       });
-      // console.log("sending text to " + formattedPhone);
+      // if user added in DB, send confirmation text to user
       twilioClient.messages.create({
-         body: "From BearTrack:\nWelcome to BearTrack, " + req.body.name + "!",
+         body: "From BearTrack:\nWelcome to BearTrack, " + cleanedName + "!",
          from: twilioNumber,
          to: formattedPhone
       }).then(message => console.log(message.sid));
@@ -61,13 +62,14 @@ app.post('/api/user/signup', (req, res, next) => {
 app.post('/api/user/login', (req, res, next) => {
   let fetchedUser;  // for later use in sending the token
   const formattedPhone = req.body.phone.replace(/-/g, "");
+  const cleanedName = req.body.name.trim()
   User.findOne({ phone: formattedPhone })
     .then( (user) => {
       if (!user) {
         return res.status(404).json({ message: "No user with phone number " + req.body.phone + " exists" });
       }
-      if (user.name != req.body.name) {
-        return res.status(404).json({ message: "No user with name " + req.body.name + " and phone number " + req.body.phone + " exists" });
+      if (user.name != cleanedName) {
+        return res.status(404).json({ message: "No user with name " + cleanedName + " and phone number " + req.body.phone + " exists" });
       }
       // send the token
       fetchedUser = user;

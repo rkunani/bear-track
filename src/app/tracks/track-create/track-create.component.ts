@@ -59,15 +59,15 @@ export class TrackCreateComponent implements OnInit {
     const currYear = currDate.getFullYear();
     var years;
     var terms;
-    if (currMonth >= 10 && currMonth <= 12) {  // in this interval, want to look at next spring's classes
+    if (currMonth >= 9 && currMonth <= 11) {  // in this interval, want to look at next spring's classes
       terms = ["Spring", "Fall"];
       years = [currYear+1, currYear];
     }
-    else if (currMonth >= 1 && currMonth <= 2) {
+    else if (currMonth >= 0 && currMonth <= 1) {
       terms = ["Spring", "Fall"];
       years = [currYear, currYear];
     }
-    else if (currMonth >= 3 && currMonth <=9) {
+    else if (currMonth >= 2 && currMonth <=8) {
       terms = ["Fall", "Spring"];
       years = [currYear, currYear];
     }

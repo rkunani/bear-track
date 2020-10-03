@@ -3,10 +3,10 @@
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 10.0.7.
 
 ## Changes to be made
-- Update track list to reflect that user has been notified already (have a button to re-active track)
 - Add emojis to UI
 - Provide functionality to edit a track
 - Handle case when GET request to Berkeleytime fails
+- Update the home page to have a "How it Works" segment
 
 ## Development server
 

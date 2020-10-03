@@ -45,4 +45,8 @@ export class TrackListComponent implements OnInit, OnDestroy {
     this.tracksService.deleteTrack(trackId);
   }
 
+  onActivateTrack(trackId: string) {
+    this.tracksService.activateTrack(trackId);
+  }
+
 }

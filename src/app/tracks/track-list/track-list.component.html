@@ -5,10 +5,14 @@
   <mat-accordion *ngIf="(tracks.length > 0)">
     <mat-expansion-panel *ngFor="let track of tracks">
       <mat-expansion-panel-header class="font">
-        {{ track.course_code + " – " + track.semester}}
+        {{ track.course_code + " – " + track.semester }}
       </mat-expansion-panel-header>
-      <p class="font">{{ "Text me when the course is " + track.status }}</p>
+      <p class="font">{{ "Text me when the course is " + track.status + "!" }}</p>
+      <strong><i class="font" *ngIf="track.notified">
+        {{ "You've already been notified. If you'd like to be notified again, reactivate the track by clicking the button below." }}
+      </i></strong>
       <mat-action-row *ngIf="userIsAuthenticated">
+        <button mat-button color="primary" *ngIf="track.notified" (click)="onActivateTrack(track.id)" class="font">REACTIVATE</button>
         <!-- <a mat-button color="primary" [routerLink]="['/']">EDIT</a> -->
         <button mat-button color="warn" (click)="onDeleteTrack(track.id)" class="font">DELETE TRACK</button>
       </mat-action-row>

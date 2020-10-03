@@ -128,6 +128,18 @@ app.delete('/api/tracks/:trackId', checkAuth, (req, res, next) => {
     });
 })
 
+/* Activate a track */
+app.put('/api/tracks/activate/:trackId', checkAuth, (req, res, next) => {
+  const newTrack = new Track({
+    _id: req.body.id,
+    notified: false
+  })
+  Track.updateOne({ _id: req.params.trackId }, newTrack)
+    .then( (result) => {
+      res.status(200).json({message: "Reactivation successful!"});
+    });
+})
+
 cron.schedule("*/5 * * * *", () => {  // send every 5 mins
   send_message();
 });

@@ -3,5 +3,6 @@ export interface Track {
   course_id: number,
   course_code: string,
   semester: string,
-  status: string
+  status: string,
+  notified: boolean
 }

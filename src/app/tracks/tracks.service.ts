@@ -23,7 +23,8 @@ export class TracksService {
       course_id: course.course_id,
       course_code: course.course_code + " " + course.course_number,
       semester: semester,
-      status: status
+      status: status,
+      notified: false
     };
     this.httpClient.post<{message: string, trackId: string}>(BACKEND_URL + "create", track)
       .subscribe(
@@ -45,6 +46,7 @@ export class TracksService {
               course_code: track.course_code,
               semester: track.semester,
               status: track.status,
+              notified: track.notified,
               id: track._id  // this fixes the issue that Mongo defaults the id field to _id and our frontend model requires "id"
             }
           })
@@ -65,6 +67,14 @@ export class TracksService {
         this.tracks = updatedTracks;
         this.tracksUpdated.next([...this.tracks]);
       } );
+  }
+
+  activateTrack(trackId: string) {
+    const newTrack = { id: trackId };
+    this.httpClient.put(BACKEND_URL + "activate/" + trackId, newTrack)
+      .subscribe( (response) => {
+        console.log(response);
+      });
   }
 
   getTrackUpdateListener() {

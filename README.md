@@ -7,6 +7,7 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 - Add emojis to UI
 - Input sanitization on name
 - Provide functionality to edit a track
+- Handle case when GET request to Berkeleytime fails
 
 ## Development server
 

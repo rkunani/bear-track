@@ -1,3 +1,15 @@
 .center-me {
   text-align: center;
 }
+
+ol {
+  display: table;
+  text-align: left;
+  margin: 0 auto;
+}
+
+li::before {
+  content: "";
+  width: 10px;
+  display: inline-block;
+}

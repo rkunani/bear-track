@@ -15,7 +15,7 @@ const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'tracks/create', component: TrackCreateComponent, canActivate: [AuthGuard] },
   { path: 'tracks/list', component: TrackListComponent, canActivate: [AuthGuard] },
-  { path: 'tracks/edit/:trackId', component: TrackCreateComponent, canActivate: [AuthGuard] }
+  { path: 'tracks/edit/:trackId', component: TrackCreateComponent, canActivate: [AuthGuard] },
   { path: 'disclaimers', component: DisclaimerComponent }
 ];
 

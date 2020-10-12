@@ -6,6 +6,7 @@ import { WelcomeComponent } from './welcome/welcome.component';
 import { SignUpComponent } from './auth/signup/signup.component';
 import { LoginComponent } from './auth/login/login.component';
 import { TrackCreateComponent } from './tracks/track-create/track-create.component';
+import { DisclaimerComponent } from './disclaimer/disclaimer.component';
 import { AuthGuard } from './auth/auth.guard';
 
 const routes: Routes = [
@@ -15,6 +16,7 @@ const routes: Routes = [
   { path: 'tracks/create', component: TrackCreateComponent, canActivate: [AuthGuard] },
   { path: 'tracks/list', component: TrackListComponent, canActivate: [AuthGuard] },
   { path: 'tracks/edit/:trackId', component: TrackCreateComponent, canActivate: [AuthGuard] }
+  { path: 'disclaimers', component: DisclaimerComponent }
 ];
 
 @NgModule({

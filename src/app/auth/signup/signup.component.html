@@ -1,6 +1,6 @@
-<mat-card *ngIf="!isConfirmed">
+<h2 *ngIf="!isLoading && !isConfirmed" class="center font">Sign up with BearTrack!</h2>
+<mat-card *ngIf="!isConfirmed" class="center-element">
   <mat-spinner *ngIf="isLoading"></mat-spinner>
-  <h2 *ngIf="!isLoading" class="font">Sign up to get a text when that class you've been keeping an eye on has an open seat!</h2>
   <form (submit)="onSignUp(signUpForm)" #signUpForm="ngForm" *ngIf="!isLoading && !isConfirmed">
     <mat-form-field class="font">
       <input

@@ -6,6 +6,15 @@ mat-spinner {
   margin: auto;
 }
 
+mat-card {
+  width: 80%;
+}
+
 .center {
   text-align: center;
+}
+
+.center-element {
+  margin: 0 auto;
+  display: block;
 }

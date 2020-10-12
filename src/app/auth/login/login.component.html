@@ -1,6 +1,5 @@
-<mat-card>
-  <mat-spinner *ngIf="isLoading"></mat-spinner>
-  <h3 *ngIf="!isLoading" class="font">Log in with your name and cell phone #</h3>
+<h2 class="center font">Log In to BearTrack</h2>
+<mat-card class="center-element">
   <form (submit)="onLogin(loginForm)" #loginForm="ngForm" *ngIf="!isLoading">
     <mat-form-field class="font">
       <input
@@ -15,16 +14,6 @@
       <mat-error *ngIf="nameInput.invalid" class="font">Name must be at least 2 letters</mat-error>
     </mat-form-field>
     <mat-form-field class="font">
-      <!-- <input
-      matInput
-      type="tel"
-      required
-      pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"
-      placeholder="Your Valid U.S. Cell # (e.g. 123-456-7890)"
-      #phoneInput="ngModel"
-      name="phone"
-      ngModel>
-      <mat-error *ngIf="phoneInput.invalid" class="font">Phone number must be in xxx-xxx-xxxx format</mat-error> -->
       <input
       matInput
       type="text"

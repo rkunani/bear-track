@@ -1,28 +1,31 @@
 <mat-card>
   <mat-spinner *ngIf="isLoading"></mat-spinner>
   <form (submit)="onCreateTrack(trackForm)" #trackForm="ngForm" *ngIf="!isLoading">
+
     <p class="font">Text me when</p>
     <mat-form-field appearance="fill" class="font">
-      <mat-label>Course (e.g. COMPSCI 61A)</mat-label>
-      <mat-select ngModel name="course" required>  <!-- this name is the attribute that appears in form.value -->
-        <mat-option *ngFor="let course of courses" [value]="course" class="font">
-          {{ course.course_code + " " + course.course_number + ": " + course.course_name }}
+      <mat-label class="font">Course (e.g. COMPSCI 61A)</mat-label>
+      <mat-select [ngModel]="course" name="course" required class="font">  <!-- this name is the attribute that appears in form.value -->
+        <mat-option *ngFor="let c of courses" [value]="c" class="font">
+          {{ c.course_code + " " + c.course_number + ": " + c.course_name }}
         </mat-option>
       </mat-select>
     </mat-form-field>
+
     <p class="font">offered in</p>
     <mat-form-field appearance="fill" class="font">
       <mat-label class="font">Semester (e.g. Fall 2020)</mat-label>
-      <mat-select ngModel name="semester" required>
+      <mat-select [ngModel]="track?.semester" name="semester" required class="font">
         <mat-option *ngFor="let sem of semesters" [value]="sem" class="font">  <!-- [value] says which attribute which actually get submitted to the form -->
           {{ sem }}
         </mat-option>
       </mat-select>
     </mat-form-field>
+
     <p class="font">is</p>
     <mat-form-field appearance="fill" class="font">
       <mat-label class="font">Status (e.g. Open)</mat-label>
-      <mat-select ngModel name="status" required>
+      <mat-select [ngModel]="track?.status" name="status" required class="font">
         <mat-option *ngFor="let s of statuses" [value]="s" class="font">  <!-- [value] says which attribute which actually get submitted to the form -->
           {{ s }}
         </mat-option>

@@ -4,7 +4,8 @@ import { map } from 'rxjs/operators';
 import { HttpClient } from '@angular/common/http';
 
 import { TracksService } from '../tracks.service';
-import { CDK_CONNECTED_OVERLAY_SCROLL_STRATEGY } from '@angular/cdk/overlay/overlay-directives';
+import { ActivatedRoute, ParamMap } from '@angular/router';
+import { Track } from '../track.model';
 
 @Component({
   templateUrl: './track-create.component.html',
@@ -15,8 +16,13 @@ export class TrackCreateComponent implements OnInit {
   courses = [];
   semesters = [];
   statuses = ["Open", "Closed"];
+  private mode = "create";
+  private trackId: string;
+  track: Track;
+  course: any;
 
-  constructor(private tracksService: TracksService, private httpClient: HttpClient) { }
+  constructor(private tracksService: TracksService, private httpClient: HttpClient,
+    private route: ActivatedRoute) { }
 
   ngOnInit() {
     this.isLoading = true;
@@ -29,7 +35,13 @@ export class TrackCreateComponent implements OnInit {
     if (form.invalid) {
       return;
     }
-    this.tracksService.createTrack(form.value.course, form.value.semester, form.value.status);
+    this.isLoading = true;
+    if (this.mode == "create") {
+      this.tracksService.createTrack(form.value.course, form.value.semester, form.value.status);
+    } else {
+      console.log(form.value.course, form.value.semester, form.value.status);
+      // this.tracksService.updateTrack();
+    }
   }
 
   private getCourses() {
@@ -49,6 +61,7 @@ export class TrackCreateComponent implements OnInit {
       .subscribe(
         (transformedCourses) => {
           this.courses = transformedCourses;
+          this.loadTrack();  // sets this.track and this.course attributes
         }
       );  // Angular automatically unsubscribes for us
   }
@@ -76,5 +89,33 @@ export class TrackCreateComponent implements OnInit {
       semesters.push(terms[i] + " " + years[i]);
     }
     return semesters;
+  }
+
+  private loadTrack() {
+    /* Pre-load the current track if the component is in edit mode */
+    this.route.paramMap.subscribe( (paramMap: ParamMap) => {  // this is an observable bc the same component can be loaded with different data
+      if (paramMap.has('trackId')) {
+        this.mode = 'edit';
+        this.trackId = paramMap.get('trackId');
+        this.isLoading = true;  // to show the loading spinner
+        this.tracksService.getTrack(this.trackId).subscribe(
+          (trackData) => {
+            this.isLoading = false;
+            this.track = {
+              id: trackData._id,
+              course_id: trackData.course_id,
+              course_code: trackData.course_code,
+              semester: trackData.semester,
+              status: trackData.status,
+              notified: trackData.notified
+            };
+            this.course = this.courses.find( (c) => { return c.course_id == this.track.course_id; } );
+          }
+        );
+      }
+      else {
+        this.mode = 'create';
+      }
+    });
   }
 }

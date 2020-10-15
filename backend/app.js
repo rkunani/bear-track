@@ -115,6 +115,18 @@ app.get('/api/tracks', checkAuth, (req, res, next) => {
     })
 });
 
+/* Fetch a particular track by ID */
+app.get("/api/tracks/:trackId", (req, res, next) => {
+  Track.findById(req.params.trackId)
+    .then( (track) => {
+      if (track) {
+        res.status(200).json(track);
+      } else {
+        res.status(404).json({message: "Could not find track with id: " + req.params.trackId});
+      }
+    });
+})
+
 // delete a track
 app.delete('/api/tracks/:trackId', checkAuth, (req, res, next) => {
   Track.deleteOne({ _id: req.params.trackId, creator: req.userData.userId })

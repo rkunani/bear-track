@@ -60,6 +60,10 @@ export class TracksService {
       );  // Angular automatically unsubscribes for us
   }
 
+  getTrack(trackId: string) {
+    return this.httpClient.get<{_id: string,course_code: string, course_id: number, creator: string, notified: boolean, semester: string, status: string}>(BACKEND_URL + trackId);
+  }
+
   deleteTrack(trackId: string) {
     this.httpClient.delete(BACKEND_URL + trackId)
       .subscribe( (response) => {

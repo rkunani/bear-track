@@ -81,6 +81,21 @@ export class TracksService {
       });
   }
 
+  updateTrack(trackId: string, course: any, semester: string, status: string) {
+    const updatedTrack: Track = {
+      id: trackId,
+      course_id: course.course_id,
+      course_code: course.course_code + " " + course.course_number,
+      semester: semester,
+      status: status,
+      notified: false
+    };
+    this.httpClient.put(BACKEND_URL + "edit/" + trackId, updatedTrack)
+      .subscribe( (response) => {
+        this.router.navigate(["/tracks/list"]);
+      });
+  }
+
   getTrackUpdateListener() {
     return this.tracksUpdated.asObservable();  // returns an object from which we can listen but not emit
   }

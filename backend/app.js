@@ -152,6 +152,22 @@ app.put('/api/tracks/activate/:trackId', checkAuth, (req, res, next) => {
     });
 })
 
+/* Update a track */
+app.put('/api/tracks/edit/:trackId', checkAuth, (req, res, next) => {
+  const updatedTrack = new Track({
+    _id: req.body.id,
+    course_id: req.body.course_id,
+    course_code: req.body.course_code,
+    semester: req.body.semester,
+    status: req.body.status,
+    notified: false
+  });
+  Track.updateOne({ _id: req.params.trackId }, updatedTrack)
+    .then( (result) => {
+      res.status(200).json({message: "Update successful!"});
+    });
+});
+
 cron.schedule("*/5 * * * *", () => {  // send every 5 mins
   send_message();
 });

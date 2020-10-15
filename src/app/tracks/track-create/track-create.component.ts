@@ -16,7 +16,7 @@ export class TrackCreateComponent implements OnInit {
   courses = [];
   semesters = [];
   statuses = ["Open", "Closed"];
-  private mode = "create";
+  mode = "create";
   private trackId: string;
   track: Track;
   course: any;
@@ -39,8 +39,7 @@ export class TrackCreateComponent implements OnInit {
     if (this.mode == "create") {
       this.tracksService.createTrack(form.value.course, form.value.semester, form.value.status);
     } else {
-      console.log(form.value.course, form.value.semester, form.value.status);
-      // this.tracksService.updateTrack();
+      this.tracksService.updateTrack(this.track.id, form.value.course, form.value.semester, form.value.status);
     }
   }
 
@@ -91,8 +90,8 @@ export class TrackCreateComponent implements OnInit {
     return semesters;
   }
 
+  /* Pre-load the current track if the component is in edit mode */
   private loadTrack() {
-    /* Pre-load the current track if the component is in edit mode */
     this.route.paramMap.subscribe( (paramMap: ParamMap) => {  // this is an observable bc the same component can be loaded with different data
       if (paramMap.has('trackId')) {
         this.mode = 'edit';

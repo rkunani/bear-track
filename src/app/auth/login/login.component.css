@@ -5,3 +5,18 @@ mat-form-field {
 mat-spinner {
   margin: auto;
 }
+
+mat-card {
+  width: 80%;
+}
+
+.center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.center-element {
+  margin: 0 auto;
+  display: block;
+}

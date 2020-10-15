@@ -60,6 +60,10 @@ export class TracksService {
       );  // Angular automatically unsubscribes for us
   }
 
+  getTrack(trackId: string) {
+    return this.httpClient.get<{_id: string,course_code: string, course_id: number, creator: string, notified: boolean, semester: string, status: string}>(BACKEND_URL + trackId);
+  }
+
   deleteTrack(trackId: string) {
     this.httpClient.delete(BACKEND_URL + trackId)
       .subscribe( (response) => {
@@ -74,6 +78,21 @@ export class TracksService {
     this.httpClient.put(BACKEND_URL + "activate/" + trackId, newTrack)
       .subscribe( (response) => {
         console.log(response);
+      });
+  }
+
+  updateTrack(trackId: string, course: any, semester: string, status: string) {
+    const updatedTrack: Track = {
+      id: trackId,
+      course_id: course.course_id,
+      course_code: course.course_code + " " + course.course_number,
+      semester: semester,
+      status: status,
+      notified: false
+    };
+    this.httpClient.put(BACKEND_URL + "edit/" + trackId, updatedTrack)
+      .subscribe( (response) => {
+        this.router.navigate(["/tracks/list"]);
       });
   }
 

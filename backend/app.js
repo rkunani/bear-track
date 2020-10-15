@@ -115,6 +115,18 @@ app.get('/api/tracks', checkAuth, (req, res, next) => {
     })
 });
 
+/* Fetch a particular track by ID */
+app.get("/api/tracks/:trackId", (req, res, next) => {
+  Track.findById(req.params.trackId)
+    .then( (track) => {
+      if (track) {
+        res.status(200).json(track);
+      } else {
+        res.status(404).json({message: "Could not find track with id: " + req.params.trackId});
+      }
+    });
+})
+
 // delete a track
 app.delete('/api/tracks/:trackId', checkAuth, (req, res, next) => {
   Track.deleteOne({ _id: req.params.trackId, creator: req.userData.userId })
@@ -139,6 +151,22 @@ app.put('/api/tracks/activate/:trackId', checkAuth, (req, res, next) => {
       res.status(200).json({message: "Reactivation successful!"});
     });
 })
+
+/* Update a track */
+app.put('/api/tracks/edit/:trackId', checkAuth, (req, res, next) => {
+  const updatedTrack = new Track({
+    _id: req.body.id,
+    course_id: req.body.course_id,
+    course_code: req.body.course_code,
+    semester: req.body.semester,
+    status: req.body.status,
+    notified: false
+  });
+  Track.updateOne({ _id: req.params.trackId }, updatedTrack)
+    .then( (result) => {
+      res.status(200).json({message: "Update successful!"});
+    });
+});
 
 cron.schedule("*/5 * * * *", () => {  // send every 5 mins
   send_message();

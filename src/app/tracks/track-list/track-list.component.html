@@ -1,7 +1,7 @@
 <h2 class="center">My Tracks</h2>
 <mat-spinner *ngIf="isLoading"></mat-spinner>
 <h3 *ngIf="!isLoading" class="center">BearTrack is keeping tabs on these classes for you:</h3>
-<div *ngIf="!isLoading" class="spacer">
+<div *ngIf="!isLoading" class="center-element">
   <mat-accordion *ngIf="(tracks.length > 0)">
     <mat-expansion-panel *ngFor="let track of tracks">
       <mat-expansion-panel-header class="font">
@@ -19,5 +19,6 @@
     </mat-expansion-panel>
   </mat-accordion>
   <p *ngIf="(tracks.length <= 0)" class="center font">You're not tracking any classes!</p>
-  <button mat-raised-button color="primary" [routerLink]="['/tracks/create']" class="center-button font">Add a Track</button>
+  <br>
+  <button mat-raised-button color="primary" [routerLink]="['/tracks/create']" class="center-element font">Add a Track</button>
 </div>

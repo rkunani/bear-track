@@ -2,10 +2,19 @@ mat-form-field {
   width: 100%
 }
 
+mat-card {
+  width: 80%;
+}
+
 mat-spinner {
   margin: auto;
 }
 
 .center {
   text-align: center;
+}
+
+.center-element {
+  margin: 0 auto;
+  display: block;
 }

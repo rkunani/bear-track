@@ -4,9 +4,9 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 
 ## Changes to be made
 - Add emojis to UI
-- Provide functionality to edit a track
 - Handle case when GET request to Berkeleytime fails
-- Update the home page to have a "How it Works" segment
+- Users can login with just their phone number?? (need to address the problem of name typos, which can also do with edit profile functionality)
+- Indication of name of logged in user
 
 ## Development server
 

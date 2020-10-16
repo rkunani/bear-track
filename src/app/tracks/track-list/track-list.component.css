@@ -8,7 +8,11 @@ mat-spinner {
   margin: auto;
 }
 
-.center-button {
+div {
+  width: 80%;
+}
+
+.center-element {
   margin: 0 auto;
   display: block;
 }

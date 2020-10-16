@@ -1,4 +1,6 @@
-<mat-card>
+<h2 *ngIf="!isLoading && mode == 'create'" class="center font">Start tracking a class</h2>
+<h2 *ngIf="!isLoading && mode == 'edit'" class="center font">Edit an existing track</h2>
+<mat-card class="center-element">
   <mat-spinner *ngIf="isLoading"></mat-spinner>
   <form (submit)="onCreateTrack(trackForm)" #trackForm="ngForm" *ngIf="!isLoading">
 
@@ -32,7 +34,7 @@
       </mat-select>
     </mat-form-field>
 
-    <button mat-raised-button *ngIf="mode == 'create'" color="primary" type="submit" class="font">Create Track</button>
-    <button mat-raised-button *ngIf="mode == 'edit'" color="primary" type="submit" class="font">Save Track</button>
+    <button mat-raised-button *ngIf="mode == 'create'" color="primary" type="submit" class="center-element font">Create Track</button>
+    <button mat-raised-button *ngIf="mode == 'edit'" color="primary" type="submit" class="center-element font">Save Track</button>
   </form>
 </mat-card>
